@@ -1,22 +1,18 @@
-Name: Roguelike Blueprint
-Version: 1.0
+HTML5 Roguelike Game Blueprint
+================================
 Type: Game
 Author: Ido Yehieli
 Website: http://tametick.com/
 KiwiJS last version tested: 0.5.3
 
-----------------------------------------------------------------------------------------
-Versions
-----------------------------------------------------------------------------------------
+##Versions
 
 1.0 - Initial Game. 
 	
 
-----------------------------------------------------------------------------------------
-Description:
-----------------------------------------------------------------------------------------
+##Description:
 
-This blueprint shows how to use the map generator, pathfinding, tragectory and ai plugins to create a simple roguelike.
+This blueprint includes map generator, pathfinding, tragectory and ai plugins to create a simple roguelike.
 
 ----------------------------------------------------------------------------------------
 How to use.
