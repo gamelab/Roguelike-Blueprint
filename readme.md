@@ -1,4 +1,4 @@
-HTML5 Roguelike Game Blueprint
+Roguelike Game Blueprint 1.0
 ================================
 
 ![alt tag](http://willwriteaboutvideogamesformoney.files.wordpress.com/2012/06/cq2shot3.png)
@@ -10,7 +10,6 @@ Crafted by Ido Yehieli (http://tametick.com/), creator of Cardinal Quest, the Ki
 
 ##Versions
 
-1.0 - Initial Game 
 KiwiJS last version tested: 0.5.3
 	
 
