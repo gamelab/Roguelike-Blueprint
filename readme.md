@@ -37,7 +37,7 @@ The PlayState demonstrates the structure of a simple roguelike game. Import the 
 The level is represented by a 2d array of characters. '.' represets a floor (walkable) and '#' a wall(blocking). In the PlayState you can see how to easily show this level using either the TileMap class (http://www.api.kiwijs.org/classes/TileMap.html) or an array of TextFields.
 
 ##Contribute
-If you discover a bug or find yourself just wanting to jump on in please file an issue and get stuck in. We're a friedly bunch and hope people find themselves wanting to get involved. 
+If you discover a bug or find yourself just wanting to jump on in and help make this blueprint even better please file an issue and get stuck in. We're a friedly bunch and hope people find themselves wanting to get involved. 
 
 https://github.com/gamelab/Roguelike-Blueprint/issues/new
 
