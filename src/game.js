@@ -1,5 +1,10 @@
 //Initialise the Kiwi Game. 
-var game = new Kiwi.Game('content', 'RoguelikeGame', null, { renderer: Kiwi.RENDERER_CANVAS });
+var gameOptions = {
+	width: 780,
+	height: 640
+}
+
+var game = new Kiwi.Game('content', 'RoguelikeGame', null, gameOptions);
 
 
 //Add all the States we are going to use.
