@@ -69,7 +69,6 @@ PlayState.moving;
 PlayState.playerHp;
 PlayState.playerSpeed;
 PlayState.playerDamage;
-PlayState.playerArmour;
 //PlayState.playerBolts;
 
 // actor speed types
@@ -84,7 +83,6 @@ PlayState.LootTypes = {
 	WAND: 0,
 	PICKAXE: 1,
 	POTION: 2,
-	SPEEDPOTION: 3,
 }
 
 PlayState.extraLootTypes = {
@@ -194,32 +192,33 @@ PlayState.initEntities = function () {
 
 		if(this.isDungeon)
 		{
-			if(rand<1/3) {
+			if(rand<1/2) {
 				item.type = this.LootTypes.WAND;
-			} else if(rand<2/3) {
-				item.type = this.LootTypes.POTION;
 			} else {
-				item.type = this.LootTypes.SPEEDPOTION;
+				item.type = this.LootTypes.POTION;
 			}
 		}
 		else if(this.isCrypt)
 		{
-			if(rand<1/3) {
+			if(rand<1/2) {
 				item.type = this.LootTypes.WAND;
-			} else if(rand<2/3) {
-				item.type = this.LootTypes.POTION;
 			} else {
-				item.type = this.LootTypes.SPEEDPOTION;
+				item.type = this.LootTypes.POTION;
 			}
 		}
 		else
 		{
-			if(rand<1/3) {
+//			if(rand<1/3) {
+//				item.type = this.LootTypes.WAND;
+//			} else if(rand<2/3) {
+//				item.type = this.LootTypes.PICKAXE;
+//			} else {
+//				item.type = this.LootTypes.POTION;
+//			}
+			if(rand<1/2) {
 				item.type = this.LootTypes.WAND;
-			} else if(rand<2/3) {
-				item.type = this.LootTypes.POTION;
 			} else {
-				item.type = this.LootTypes.SPEEDPOTION;
+				item.type = this.LootTypes.POTION;
 			}
 		}
 
@@ -238,8 +237,6 @@ PlayState.initEntities = function () {
 	}
 
 	// create extra loot
-	// Extra loot was primarily implemented so I could make Lumber Axes (pickaxe) always spawn once on a Forest map.
-	// However, it can be expanded with other map-specific loot that you only want spawning once (or however many times) per map.
 	this.extraLootList = [];
 	this.extraLootMap = {};
 
@@ -333,7 +330,6 @@ PlayState.initEntities = function () {
 			actor.isPlayer = true;
 			actor.maxHp = actor.hp = 3;
 			actor.damage = 1;
-			actor.armour = 1;
 			actor.speed = this.Speeds.NORMAL;
 			actor.xp = 0;
 			actor.level = 0;
@@ -395,26 +391,30 @@ PlayState.initEntities = function () {
 					actor.damage = 3;
 				}
 			} else {
-				if(rand<1/5) {
+				if(rand<1/6) {
 					actor.ai = Kiwi.Plugins.AI.AiTypes.SIMPLE;
 					actor.speed = this.Speeds.NORMAL;
 					actor.damage = 1;
-				} else if(rand<2/5) {
+				} else if(rand<2/6) {
 					actor.ai = Kiwi.Plugins.AI.AiTypes.SMART;
 					actor.speed = this.Speeds.SLOW;
 					actor.damage = 2;
-				} else if(rand<3/5) {
+				} else if(rand<3/6) {
 					actor.ai = Kiwi.Plugins.AI.AiTypes.TREANT;
 					actor.speed = this.Speeds.SLOW;
 					actor.damage = 3;
-				} else if(rand<4/5) {
+				} else if(rand<4/6) {
 					actor.ai = Kiwi.Plugins.AI.AiTypes.RANDOM;
 					actor.speed = this.Speeds.FAST;
 					actor.damage = 1;
-				} else {
+				} else if(rand<5/6) {
 					actor.ai = Kiwi.Plugins.AI.AiTypes.SIMPLE;
 					actor.speed = this.Speeds.NORMAL;
 					actor.damage = 1;
+				} else {
+					actor.ai = Kiwi.Plugins.AI.AiTypes.BOSS;
+					actor.speed = this.Speeds.SLOW;
+					actor.damage = 3;
 				}
 			}
 		}
@@ -447,10 +447,8 @@ PlayState.initEntitySprites = function() {
 			loot.sprite.cellIndex = 0;
 		} else if(loot.type == this.LootTypes.PICKAXE){
 			loot.sprite.cellIndex = 1;
-		} else if(loot.type == this.LootTypes.POTION){
-			loot.sprite.cellIndex = 2;
 		} else {
-			loot.sprite.cellIndex = 3;
+			loot.sprite.cellIndex = 2;
 		}
 
 		this.addChild(loot.sprite);
@@ -541,10 +539,10 @@ PlayState.initEntitySprites = function() {
 			actor.sprite.cellIndex = 9;
 		} else if(actor.ai == Kiwi.Plugins.AI.AiTypes.GHOST){
 			// ghost enemy
-			actor.sprite.cellIndex = 14;
+			actor.sprite.cellIndex = 9;
 		} else if(actor.ai == Kiwi.Plugins.AI.AiTypes.TREANT){
 			// treant enemy
-			actor.sprite.cellIndex = 17;
+			actor.sprite.cellIndex = 14;
 		} else if(actor.ai == Kiwi.Plugins.AI.AiTypes.VAMPIRE){
 			// vampire enemy
 			actor.sprite.cellIndex = 13;
@@ -576,8 +574,6 @@ PlayState.drawEntities = function() {
 				symbol = '^';
 			} else if(this.lootList[l].type == this.LootTypes.POTION)  {
 				symbol = '%';
-			} else if(this.lootList[l].type == this.LootTypes.SPEEDPOTION)  {
-				symbol = '>';
 			}
 
 			this.setCell(this.lootList[l].x, this.lootList[l].y, symbol);
@@ -786,13 +782,11 @@ PlayState.create = function (params) {
 
 	// create hud widgets
 	this.playerHp = new Kiwi.HUD.Widget.IconBar(this.game, this.textures.heart,
-			this.player.hp, this.player.hp, 332 , 114); //originally 340, 114
+			this.player.hp, this.player.hp, 340 , 114);
 	this.playerSpeed = new Kiwi.HUD.Widget.IconBar(this.game, this.textures.speed,
 			this.player.speed, this.player.speed, 340 , 130);
 	this.playerDamage = new Kiwi.HUD.Widget.IconBar(this.game, this.textures.sword,
 			this.player.damage, this.player.damage, 340 , 146);
-	this.playerArmour = new Kiwi.HUD.Widget.IconBar(this.game, this.textures.armour,
-			this.player.armour, this.player.armour, 356 , 146);
 //	this.playerBolts = new Kiwi.HUD.Widget.IconBar(this.game, this.textures.shot,
 //			this.player.bolts, this.player.bolts, 340 , 162);
 	this.playerXp = new Kiwi.HUD.Widget.Bar(this.game,
@@ -802,7 +796,6 @@ PlayState.create = function (params) {
 	this.game.huds.defaultHUD.addWidget(this.playerHp);
 	this.game.huds.defaultHUD.addWidget(this.playerSpeed);
 	this.game.huds.defaultHUD.addWidget(this.playerDamage);
-	this.game.huds.defaultHUD.addWidget(this.playerArmour);
 //	this.game.huds.defaultHUD.addWidget(this.playerBolts);
 	this.game.huds.defaultHUD.addWidget(this.playerXp);
 
@@ -1022,7 +1015,7 @@ PlayState.cleanUpDeadActor = function(victim) {
 				self.player.hp = self.player.maxHp;
 				this.game.huds.defaultHUD.removeWidget(self.playerHp);
 				self.playerHp = new Kiwi.HUD.Widget.IconBar(this.game, this.textures.heart,
-					this.player.hp, this.player.hp, 332 , 114); //originally 340, 114
+					this.player.hp, this.player.hp, 340 , 114);
 				this.game.huds.defaultHUD.addWidget(this.playerHp);
 
 				// it takes double the xp to reach the next level
@@ -1050,34 +1043,9 @@ PlayState.pickUpLoot =  function(loot, picker) {
 	if(loot.type==self.LootTypes.POTION) {
 		// heal
 		picker.hp = picker.maxHp;
-		//What I wanted to do with this commented out code is make it so you can't pick up the Health Potion if you're at max Health.
-		//Couldn't make it work. Leaving it in for when I can.
-			//if(picker.isPlayer) {
-			//if (picker.hp != picker.maxHp) {
-			//	self.playerHp.counter.current=Math.max(0, picker.hp);
-			//} else {
-			//	return false;
-			//}
 		if(picker.isPlayer) {
 			self.playerHp.counter.current=Math.max(0, picker.hp);
-			}
-	//} else if(loot.type==self.LootTypes.SPEEDPOTION) {
-	//	 speed up. Currently commented out until I can get it to work.
-	//	I believe the actual 'speed up' effect works fine (certainly seems to), but the HUD element won't update.
-	//
-	//	if(picker.isPlayer) {
-	//		if (picker.speed == this.Speeds.SLOW) {
-	//		picker.speed = this.Speeds.NORMAL
-	//		this.playerSpeed.counter.current = self.player.speed;
-	//		} else {
-	//		picker.speed = this.Speeds.FAST
-	//		this.playerSpeed.counter.current = self.player.speed;
-	//		}
-	//	}
-	//	victim.speed = self.Speeds.SLOW;
-	//	if(victim.isPlayer) {
-	//		this.playerSpeed.counter.current = victim.speed;
-	//	}
+		}
 
 	} else if(loot.type==self.LootTypes.PICKAXE) {
 		// enable digging
@@ -1108,12 +1076,6 @@ PlayState.pickUpExtraLoot =  function(extraLoot, picker) {
 	if(extraLoot.type==self.extraLootTypes.POTION) {
 		// heal
 		picker.hp = picker.maxHp;
-			//if(picker.isPlayer) {
-			//if (picker.hp != picker.maxHp) {
-			//	self.playerHp.counter.current=Math.max(0, picker.hp);
-			//} else {
-			//	return false;
-			//}
 		if(picker.isPlayer) {
 			self.playerHp.counter.current=Math.max(0, picker.hp);
 		}
@@ -1479,7 +1441,6 @@ PlayState.reset = function(){
 	this.playerXp.counter.current = 0;
 	this.playerSpeed.counter.current = 0;
 	this.playerDamage.counter.current = 0;
-	this.playerArmour.counter.current = 0;
 //	this.playerBolts.counter.current = 0;
 	if(this.player.shotsBar!=undefined) {
 		this.player.shotsBar.counter.current = 0;

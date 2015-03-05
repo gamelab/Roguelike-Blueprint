@@ -29,10 +29,12 @@ LoadingState.preload = function () {
 	this.addSpriteSheet('tiles', 'assets/img/tiles_3.png', 32, 32);
 	this.addSpriteSheet('actors', 'assets/img/actors_4.png', 32, 32);
 
-	this.addSpriteSheet('heart', 'assets/img/heart_2.png', 32, 32);
+	this.addSpriteSheet('heart', 'assets/img/heart_8x8.png', 16, 16);
 	this.addSpriteSheet('speed', 'assets/img/speed_3.png', 32, 32);
 	this.addSpriteSheet('sword', 'assets/img/sword.png', 32, 32);
+	this.addSpriteSheet('armour', 'assets/img/armour.png', 32, 32);
 	this.addSpriteSheet('loot', 'assets/img/loot_2.png', 32, 32);
+	this.addSpriteSheet('extraLoot', 'assets/img/loot_2.png', 32, 32);
 	this.addSpriteSheet('traps', 'assets/img/traps_2.png', 32, 32);
 	this.addSpriteSheet('shot', 'assets/img/shot_2.png', 32, 32);
 
