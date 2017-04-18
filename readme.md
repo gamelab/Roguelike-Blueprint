@@ -8,12 +8,12 @@ Roguelike is a sub-genre of role-playing video games, characterized by random le
 Crafted by Ido Yehieli (http://tametick.com/), creator of Cardinal Quest, the Kiwi.JS Roguelike Blueprint coupled with the Kiwi.JS game engine, this Blueprint allows users to rapidly develop a Roguelike game. 
 
 
-##Versions
+## Versions
 
 KiwiJS last version tested: 0.5.3
 	
 
-##Features
+## Features
 
 This blueprint includes:
 * move with the arrow keys or by clicking/tapping in the direction you wish
@@ -28,18 +28,18 @@ This blueprint includes:
 * 2 display modes: ascii & graphics
 
 
-##How to use
+## How to use
 
 The PlayState demonstrates the structure of a simple roguelike game. Import the afordmentioned plugins (you can find them in the lib/plug
  directory) and create your own graphical or ascii roguelike.
  
 The level is represented by a 2d array of characters. '.' represets a floor (walkable) and '#' a wall(blocking). In the PlayState you can see how to easily show this level using either the TileMap class (http://www.api.kiwijs.org/classes/TileMap.html) or an array of TextFields.
 
-##Contribute
+## Contribute
 If you discover a bug or find yourself just wanting to jump on in and help make this blueprint even better please file an issue and get stuck in. We're a friendly bunch and hope people find themselves wanting to get involved. 
 
 https://github.com/gamelab/Roguelike-Blueprint/issues/new
 
-##Related Documentation 
+## Related Documentation 
 
 Coming soon
